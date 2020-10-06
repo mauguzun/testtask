@@ -9,6 +9,7 @@ namespace OmdbApi.Models.Model
     {
         public int Id { get; set; }
         public string Query { get; set; }
-        public DateTime DateTime { get; set; } = DateTime.Now;
+        public uint Page { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
     }
 }

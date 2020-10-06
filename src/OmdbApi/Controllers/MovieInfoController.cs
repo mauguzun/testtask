@@ -4,13 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using OmdbApi.Models.Model;
 using OmdbApi.Models.ModelView;
 using OmdbApi.Services.Contracts;
 
 namespace OmdbApi.Controllers
 {
     [ApiController]
-    [Route("movie")]
+    [Route("/")]
     public class MovieInfoController : ControllerBase
     {
 
@@ -18,13 +19,19 @@ namespace OmdbApi.Controllers
 
         private readonly IMovieQueryService _movieQueryService;
 
+        private readonly IDataService _dataService;
+
+        private const int PAGE_SIZE = 10;
+
         public MovieInfoController(
             ILogger<MovieInfoController> logger,
-            IMovieQueryService movieQueryService
+            IMovieQueryService movieQueryService,
+            IDataService dataService
             )
         {
             _logger = logger;
             _movieQueryService = movieQueryService;
+            _dataService = dataService;
         }
 
         [HttpGet("{imbdId}")]
@@ -32,6 +39,20 @@ namespace OmdbApi.Controllers
         {
             var query = await _movieQueryService.GetFullMovieInformation(imbdId);
             return Ok(Newtonsoft.Json.JsonConvert.SerializeObject(query));
+        }
+
+        [HttpGet("search/{title}/{page}")]
+        public async Task<IActionResult> SearchMovies(string title, uint page)
+        {
+            var query = await _movieQueryService.GetMoviesByTitleAndPage(title, page);
+            uint nextPage = (query?.TotalResults > page * PAGE_SIZE) ? ++page : 0;
+
+            if (!string.IsNullOrWhiteSpace(title))
+            {
+                _dataService.SaveQuery(new QuerySearch { Query = title, Page = page });
+            }
+
+            return Ok(Newtonsoft.Json.JsonConvert.SerializeObject(new MovieSeachResult { Search = query?.Search, NextPage = nextPage }));
         }
     }
 }

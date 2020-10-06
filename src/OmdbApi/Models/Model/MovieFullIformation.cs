@@ -21,7 +21,7 @@ namespace OmdbApi.Models.Model
         public IEnumerable<Rating> Ratings { get; set; }
         public string Metascore { get; set; }
         public decimal ImdbRating { get; set; }
-        public int ImdbVotes { get; set; }
+        public string ImdbVotes { get; set; }
         public string ImdbID { get; set; }
         public string Type { get; set; }
         public string DVD { get; set; }
