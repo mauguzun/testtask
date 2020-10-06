@@ -14,16 +14,16 @@ namespace OmdbApi.Services.Impletemntations
             _httpClient = new HttpClient();
         }
         
-        public MovieFullIformation GetFullMovieInformation(string id= "tt0290000")
+        public async Task<MovieFullIformation> GetFullMovieInformation(string id= "tt0290000")
         {
-            var json = this.Request($"i={id}");
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<MovieFullIformation>(json.Result);
+            var json = await this.Request($"i={id}");
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<MovieFullIformation>(json);
         }
 
-        public SearchResult GetMoviesByTitleAndPage(string title, int page = 1)
+        public async Task<SearchResult> GetMoviesByTitleAndPage(string title, uint page = 1)
         {
-            var json  = this.Request($"&page={page}&s={title}");
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<SearchResult>(json.Result);
+            var json  = await this.Request($"&page={page}&s={title}");
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<SearchResult>(json);
         }
 
         private async Task<string> Request(string request )

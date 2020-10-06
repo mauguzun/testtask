@@ -29,6 +29,7 @@ namespace OmdbApi
             services.AddControllers();
 
             services.AddScoped<IMovieQueryService, MovieQueryService>();
+            services.AddScoped<IDataService, InMemoryDataService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

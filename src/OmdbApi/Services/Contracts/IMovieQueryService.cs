@@ -1,11 +1,11 @@
 ﻿using OmdbApi.Models.Model;
+using System.Threading.Tasks;
 
 namespace OmdbApi.Services.Contracts
 {
     public interface IMovieQueryService
     {
-        SearchResult GetMoviesByTitleAndPage(string title,int page = 1);
-
-        MovieFullIformation GetFullMovieInformation(string id); 
+        Task<SearchResult> GetMoviesByTitleAndPage(string title, uint page = 1);
+        Task<MovieFullIformation> GetFullMovieInformation(string id);
     }
 }

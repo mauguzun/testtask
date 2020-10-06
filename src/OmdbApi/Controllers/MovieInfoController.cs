@@ -18,7 +18,6 @@ namespace OmdbApi.Controllers
 
         private readonly IMovieQueryService _movieQueryService;
 
-
         public MovieInfoController(
             ILogger<MovieInfoController> logger,
             IMovieQueryService movieQueryService
@@ -26,14 +25,13 @@ namespace OmdbApi.Controllers
         {
             _logger = logger;
             _movieQueryService = movieQueryService;
-            _movieQueryService = movieQueryService;
         }
 
         [HttpGet("{imbdId}")]
-        public string MovieInfo(string imbdId)
+        public async Task<IActionResult> MovieInfo(string imbdId)
         {
-            var query = _movieQueryService.GetFullMovieInformation(imbdId);
-            return Newtonsoft.Json.JsonConvert.SerializeObject(query);
+            var query = await _movieQueryService.GetFullMovieInformation(imbdId);
+            return Ok(Newtonsoft.Json.JsonConvert.SerializeObject(query));
         }
     }
 }
