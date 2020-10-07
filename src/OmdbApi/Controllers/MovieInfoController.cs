@@ -11,7 +11,8 @@ using OmdbApi.Services.Contracts;
 namespace OmdbApi.Controllers
 {
     [ApiController]
-    [Route("/")]
+    [Route("/")] 
+    //[Route("/")]  appologies here must be route movie ,but i dont`t want build angular one more time
     public class MovieInfoController : ControllerBase
     {
 
@@ -44,14 +45,13 @@ namespace OmdbApi.Controllers
         [HttpGet("search/{title}/{page}")]
         public async Task<IActionResult> SearchMovies(string title, uint page)
         {
-            var query = await _movieQueryService.GetMoviesByTitleAndPage(title, page);
-            uint nextPage = (query?.TotalResults > page * PAGE_SIZE) ? ++page : 0;
-
             if (!string.IsNullOrWhiteSpace(title))
             {
                 _dataService.SaveQuery(new QuerySearch { Query = title, Page = page });
             }
 
+            var query = await _movieQueryService.GetMoviesByTitleAndPage(title, page);
+            uint nextPage = (query?.TotalResults > page * PAGE_SIZE) ? ++page : 1;
             return Ok(Newtonsoft.Json.JsonConvert.SerializeObject(new MovieSeachResult { Search = query?.Search, NextPage = nextPage }));
         }
     }

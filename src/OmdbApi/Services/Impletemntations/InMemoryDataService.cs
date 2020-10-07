@@ -20,7 +20,12 @@ namespace OmdbApi.Services.Impletemntations
         }
         public IEnumerable<QuerySearch> GetLastQueries(int count = 5)
         {
-            return _dbContext.QuerySearchs.OrderByDescending(x => x.Date).Take(count);
+            return _dbContext
+                .QuerySearchs
+                .ToList()
+                .OrderByDescending(x => x.Date)
+                .GroupBy(x => x.Query).Select(group => group.First())
+                .Take(count);
         }
         public void SaveQuery(QuerySearch query)
         {

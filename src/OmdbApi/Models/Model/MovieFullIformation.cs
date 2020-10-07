@@ -20,7 +20,7 @@ namespace OmdbApi.Models.Model
         public string Poster { get; set; }
         public IEnumerable<Rating> Ratings { get; set; }
         public string Metascore { get; set; }
-        public decimal ImdbRating { get; set; }
+        public string ImdbRating { get; set; }
         public string ImdbVotes { get; set; }
         public string ImdbID { get; set; }
         public string Type { get; set; }

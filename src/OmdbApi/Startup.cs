@@ -32,7 +32,7 @@ namespace OmdbApi
                 builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
             }));
 
-            services.AddControllers();
+            services.AddControllersWithViews();
 
             services.AddScoped<IMovieQueryService, MovieQueryService>();
             services.AddScoped<IDataService, InMemoryDataService>();
@@ -42,7 +42,7 @@ namespace OmdbApi
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseCors("ApiCorsPolicy");
-
+            app.UseStaticFiles();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

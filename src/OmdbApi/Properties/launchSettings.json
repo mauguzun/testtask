@@ -12,7 +12,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "search/ghost/1",
+      "launchUrl": "home",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -20,7 +20,7 @@
     "OmdbApi": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "search/ghost/1",
+      "launchUrl": "home",
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
